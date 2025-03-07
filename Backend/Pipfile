@@ -17,6 +17,8 @@ python-dotenv = "*"
 flask-debugtoolbar = "*"
 authlib = "*"
 requests = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
 
 [dev-packages]
 

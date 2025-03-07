@@ -24,7 +24,7 @@ CORS(app, resources={r"/*": {"origins": "*"}},
      expose_headers='Authorization', supports_credentials=True)
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///localshop.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localshop_db_user:6S8MtuRbXNtzy11vOZf4eyxuJyNlAGAR@dpg-cv5n6ubtq21c73da64m0-a.oregon-postgres.render.com/localshop_db'
 # Disable modification tracking
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['CORS_HEADERS'] = 'application/json'
