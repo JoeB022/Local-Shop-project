@@ -16,7 +16,7 @@ def seed_data():
         for store in stores:
             db.session.add(store)
 
-        db.session.flush()  # Make sure stores have IDs
+        db.session.flush()  # Make sure stores have ID's
 
         products = [
             Product(name="Maize Flour (2kg)", buying_price=100.00, selling_price=130.00, store_id=stores[0].id),
