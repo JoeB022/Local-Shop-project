@@ -1,0 +1,6 @@
+gunicorn
+flask
+flask-migrate
+flask_jwt_extended
+flask-cors
+authlib
