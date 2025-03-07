@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@import "tailwindcss";
+
+
+
+/* ================= Global Styles ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #e0e0e0;
+  color: #333;
+  line-height: 1.6;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7bCy2LENgU68U1Sna-gMWwSGvp0n9rQrXw&s'); /* Updated image path */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
+*a{
+  text-decoration: none !important;
+}
+
+/* ================= Layout ================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+/* ================= Navbar ================= */
+.navbar {
+  background: #0056b3;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* ================= Home Page ================= */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.content {
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  font-family: 'Playfair Display', serif;
+}
+
+h1, h2 {
+  color: #0056b3;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: left;
+}
+
+/* ================= Authentication Forms ================= */
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 12px;
+  background: #0056b3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.auth-container button:hover {
+  background: #003d80;
+}
+
+/* ================= Dashboards ================= */
+.dashboard, 
+.profile-dashboard, 
+.clerk-dashboard, 
+.merchant-dashboard {
+  max-width: 850px;
+  margin: 40px auto;
+  /* background: white; */
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard h2,
+.profile-dashboard h1, 
+.profile-dashboard h2, 
+.clerk-dashboard h1, 
+.merchant-dashboard h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ================= Buttons ================= */
+button {
+  background: #0056b3;
+  color: white;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #003d80;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: #dc3545;
+  padding: 14px 22px;
+  font-size: 1rem;
+  display: block;
+  margin: 30px auto;
+  width: 220px;
+  text-align: center;
+}
+
+.logout-btn:hover {
+  background: #b02a37;
+}
+
+/* ================= Footer ================= */
+.footer {
+  background-color: #d6d6d6;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+/* ================= Responsive Design ================= */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .dashboard,
+  .profile-dashboard,
+  .clerk-dashboard,
+  .merchant-dashboard,
+  .auth-container {
+    width: 95%;
+  }
+
+  .footer {
+    padding: 15px;
+  }
+}
