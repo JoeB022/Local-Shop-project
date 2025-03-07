@@ -78,7 +78,7 @@ def request_password_reset():
     msg = Message(
         subject="Password Reset Request",
         recipients=[email],
-        body=f"Click the link to reset your password: http://localhost:5000/reset-password/{token}"
+        body=f"Click the link to reset your password: http://localshop-inventory-system.vercel.app/reset-password/{token}"
     )
 
     try:

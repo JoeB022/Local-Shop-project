@@ -42,7 +42,7 @@ google = oauth.register(
     'google',
     client_id='',
     client_secret='',
-    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    server_metadata_url='429411048349-8ad7b49ndt75scedng3rrp4s03emd4m3.apps.googleusercontent.com',
     client_kwargs={
         'scope': 'openid email profile',
         'prompt': 'select_account'
@@ -54,7 +54,7 @@ google = oauth.register(
 def google_login():
     # Store the frontend callback URL in the session
     frontend_callback = request.args.get(
-        'callback_url', 'http://localhost:5173/auth/callback')
+        'callback_url', 'http://localshop-inventory-system.vercel.app/auth/callback')
     session['frontend_callback'] = frontend_callback
 
     # Redirect to Google for authentication
@@ -95,7 +95,7 @@ def google_callback():
 
         # Get the frontend callback URL from session
         frontend_callback = session.get(
-            'frontend_callback', 'http://localhost:5173/auth/callback')
+            'frontend_callback', 'http://localshop-inventory-system.vercel.app/auth/callback')
 
         # Redirect to frontend with auth data in fragment (more secure than query params)
         # Using fragment (#) instead of query params (?) prevents tokens from being logged in server logs
