@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -17,34 +12,28 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useAuth } from "./context/AuthContext";
 import "./App.css";
-import GoogleAuthSuccess from "./components/GoogleSuccess";
 import AuthCallback from "./components/AuthCallback";
 import MerchantLayout from "./layouts/MerchantLayout";
 import MerchantStores from "./pages/merchants/MerchantStoresPage";
 import MerchantStoreDetails from "./pages/merchants/MerchantStoreDetails";
 
 const App = () => {
-  const { user } = useAuth(); // Get user authentication status
-  const userRole = user?.role || null; // Ensure safe access to user role
+  const { user } = useAuth();
+  const userRole = user?.role || null;
 
-  // Wrapper for protecting routes based on user roles
   const ProtectedRoute = ({ children, allowedRoles }) => {
     if (!userRole) {
-      return "";
+      return <Navigate to="/login" replace />;
     }
-    return allowedRoles.includes(userRole) ? (
-      children
-    ) : (
-      <Navigate to="/" replace />
-    );
+    return allowedRoles.includes(userRole) ? children : <Navigate to="/" replace />;
   };
 
+  const hideNavbarFooter = ["/login", "/register", "/auth/callback"].includes(window.location.pathname);
+
   return (
-    <Router>
-      <Navbar />
+    <>
+      {!hideNavbarFooter && <Navbar />}
       <div className="main-content">
-        {" "}
-        {/* Ensures proper layout */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -52,24 +41,48 @@ const App = () => {
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/about" element={<AboutPage />} />
 
-          {/* Protected Routes */}
-          <Route path="/clerk" element={<ClerkDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route
+            path="/clerk"
+            element={
+              <ProtectedRoute allowedRoles={["clerk"]}>
+                <ClerkDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
 
-          <Route path="/merchant" element={<MerchantLayout />}>
+          <Route
+            path="/merchant"
+            element={
+              <ProtectedRoute allowedRoles={["merchant"]}>
+                <MerchantLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<MerchantDashboard />} />
-            <Route path="/merchant/stores" element={<MerchantStores />} />
-            <Route path="/merchant/stores/:storeId" element={<MerchantStoreDetails />} />
+            <Route path="stores" element={<MerchantStores />} />
+            <Route path="stores/:storeId" element={<MerchantStoreDetails />} />
           </Route>
-          {/* <Route path="/merchant" element={<MerchantDashboard />} /> */}
+
           <Route
             path="/profile-settings"
-            element={<ProfileDashboard userRole={userRole} />}
+            element={
+              <ProtectedRoute allowedRoles={["clerk", "admin", "merchant"]}>
+                <ProfileDashboard userRole={userRole} />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </div>
-      <Footer />
-    </Router>
+      {!hideNavbarFooter && <Footer />}
+    </>
   );
 };
 

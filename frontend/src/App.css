@@ -2,8 +2,6 @@
 
 @import "tailwindcss";
 
-
-
 /* ================= Global Styles ================= */
 * {
   margin: 0;
@@ -13,37 +11,51 @@
 }
 
 body {
-  background-color: #e0e0e0;
-  color: #333;
-  line-height: 1.6;
-  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7bCy2LENgU68U1Sna-gMWwSGvp0n9rQrXw&s'); /* Updated image path */
+  background-image: url('https://i.pinimg.com/236x/54/ab/72/54ab72c11992efff2f98eef763e357e9.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #333;
+  line-height: 1.6;
+  position: relative;
 }
 
+/* Background Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay for contrast */
+  z-index: -1;
+}
+
+/* Hide Scrollbar */
 body::-webkit-scrollbar {
   display: none !important;
 }
 
-*a{
+*a {
   text-decoration: none !important;
 }
 
 /* ================= Layout ================= */
 .container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 30px;
 }
 
 /* ================= Navbar ================= */
 .navbar {
-  background: #0056b3;
+  background: rgba(0, 86, 179, 0.9);
   color: white;
   padding: 15px 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -55,7 +67,6 @@ body::-webkit-scrollbar {
 
 .navbar a {
   color: white;
-  text-decoration: none;
   padding: 10px;
 }
 
@@ -75,11 +86,11 @@ body::-webkit-scrollbar {
 
 .content {
   max-width: 800px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.7); /* Glassmorphism */
+  backdrop-filter: blur(10px);
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   padding: 40px;
-  font-family: 'Playfair Display', serif;
 }
 
 h1, h2 {
@@ -97,7 +108,8 @@ ul {
   max-width: 400px;
   margin: 50px auto;
   padding: 30px;
-  background: white;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   text-align: center;
@@ -132,7 +144,8 @@ ul {
 .merchant-dashboard {
   max-width: 850px;
   margin: 40px auto;
-  /* background: white; */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
   padding: 25px;
   border-radius: 5px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -179,7 +192,7 @@ button:hover {
 
 /* ================= Footer ================= */
 .footer {
-  background-color: #d6d6d6;
+  background-color: rgba(214, 214, 214, 0.8);
   padding: 20px;
   text-align: center;
   width: 100%;
