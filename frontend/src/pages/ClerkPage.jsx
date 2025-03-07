@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Spinner, Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
-
+import {Spinner, Form, Button, Alert, Container, Row, Col,Card,} from "react-bootstrap";
 // Replace with actual API calls if ready
 const fetchOrders = async () => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve([{ id: 1, description: "Order 1", status: "Pending" }]), 1000);
+    setTimeout(
+      () => resolve([{ id: 1, description: "Order 1", status: "Pending" }]),
+      1000
+    );
   });
 };
 
@@ -60,7 +62,8 @@ const ClerkPage = () => {
     const { name, value } = e.target;
     setItemDetails({
       ...itemDetails,
-      [name]: name.includes("items") || name.includes("Price") ? Number(value) : value,
+      [name]:
+        name.includes("items") || name.includes("Price") ? Number(value) : value,
     });
   };
 
@@ -91,111 +94,107 @@ const ClerkPage = () => {
   };
 
   return (
-    <Container className="mt-2">
-      <h2 className="text-center mb-2">Clerk Dashboard</h2>
+    <Container
+      className="mt-4 p-4"
+      style={{
+        background: "linear-gradient(135deg, #f8f9fa, #e9ecef)",
+        borderRadius: "10px",
+      }}
+    >
+      <h2 className="text-center text-primary mb-4">Clerk Dashboard</h2>
 
       {error && <Alert variant="danger">{error}</Alert>}
 
-      {/* Form Section */}
       <Row className="justify-content-center">
         <Col md={8}>
-          <Form onSubmit={handleSubmit} className="p-4 border rounded shadow">
-            <h4 className="mb-3">Add Item Details</h4>
+          <Card className="shadow border-0">
+            <Card.Body className="p-4">
+              <h4 className="mb-3 text-center text-secondary">Add Item Details</h4>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Items Received</Form.Label>
-              <Form.Control
-                type="number"
-                name="itemsReceived"
-                value={itemDetails.itemsReceived}
-                onChange={handleInputChange}
-                placeholder="Enter number of items received"
-                required
-              />
-            </Form.Group>
+              <Form onSubmit={handleSubmit}>
+                {[
+                  { label: "Items Received", name: "itemsReceived" },
+                  { label: "Items in Stock", name: "itemsInStock" },
+                  { label: "Items Spoilt", name: "itemsSpoilt" },
+                  { label: "Buying Price", name: "buyingPrice" },
+                  { label: "Selling Price", name: "sellingPrice" },
+                ].map(({ label, name }) => (
+                  <Form.Group className="mb-3" key={name}>
+                    <Form.Label>{label}</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name={name}
+                      value={itemDetails[name]}
+                      onChange={handleInputChange}
+                      placeholder={Enter` ${label.toLowerCase()}`}
+                      required
+                      className="shadow-sm"
+                    />
+                  </Form.Group>
+                ))}
 
-            <Form.Group className="mb-3">
-              <Form.Label>Payment Status</Form.Label>
-              <Form.Select name="paymentStatus" value={itemDetails.paymentStatus} onChange={handleInputChange} required>
-                <option value="not paid">Not Paid</option>
-                <option value="paid">Paid</option>
-              </Form.Select>
-            </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Payment Status</Form.Label>
+                  <Form.Select
+                    name="paymentStatus"
+                    value={itemDetails.paymentStatus}
+                    onChange={handleInputChange}
+                    required
+                    className="shadow-sm"
+                  >
+                    <option value="not paid">Not Paid</option>
+                    <option value="paid">Paid</option>
+                  </Form.Select>
+                </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Items in Stock</Form.Label>
-              <Form.Control
-                type="number"
-                name="itemsInStock"
-                value={itemDetails.itemsInStock}
-                onChange={handleInputChange}
-                placeholder="Enter number of items in stock"
-                required
-              />
-            </Form.Group>
+                <div className="d-grid">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={submitting}
+                    className="py-2 fw-bold shadow-sm"
+                  >
+                    {submitting ? "Recording..." : "Record Item"}
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Items Spoilt</Form.Label>
-              <Form.Control
-                type="number"
-                name="itemsSpoilt"
-                value={itemDetails.itemsSpoilt}
-                onChange={handleInputChange}
-                placeholder="Enter number of items spoilt"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Buying Price</Form.Label>
-              <Form.Control
-                type="number"
-                name="buyingPrice"
-                value={itemDetails.buyingPrice}
-                onChange={handleInputChange}
-                placeholder="Enter buying price"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Selling Price</Form.Label>
-              <Form.Control
-                type="number"
-                name="sellingPrice"
-                value={itemDetails.sellingPrice}
-                onChange={handleInputChange}
-                placeholder="Enter selling price"
-                required
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" disabled={submitting}>
-              {submitting ? "Recording..." : "Record Item"}
+          <div className="d-grid mt-3">
+            <Button
+              variant="warning"
+              className="py-2 fw-bold shadow-sm"
+              onClick={handleRequestSupply}
+              disabled={submitting}
+            >
+              {submitting ? "Requesting..." : "Request Supply"}
             </Button>
-          </Form>
-
-          <Button variant="warning" className="mt-3 w-100" onClick={handleRequestSupply} disabled={submitting}>
-            {submitting ? "Requesting..." : "Request Supply"}
-          </Button>
+          </div>
         </Col>
       </Row>
 
-      {/* Orders Section */}
       <Row className="mt-5">
-        <Col>
-          <h4>Pending Orders</h4>
-          {loadingOrders ? (
-            <Spinner animation="border" />
-          ) : (
-            <ul className="list-group">
-              {orders.map((order) => (
-                <li key={order.id} className="list-group-item">
-                  {order.description} - <strong>{order.status}</strong>
-                </li>
-              ))}
-            </ul>
-          )}
+        <Col md={8}>
+          <Card className="shadow border-0">
+            <Card.Body className="p-4">
+              <h4 className="text-center text-secondary mb-3">Pending Orders</h4>
+              {loadingOrders ? (
+                <div className="d-flex justify-content-center">
+                  <Spinner animation="border" />
+                </div>
+              ) : (
+                <ul className="list-group">
+                  {orders.map((order) => (
+                    <li key={order.id} className="list-group-item d-flex justify-content-between">
+                      <span>{order.description}</span>
+                      <strong className="text-warning">{order.status}</strong>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
