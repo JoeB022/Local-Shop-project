@@ -126,7 +126,7 @@ const ClerkPage = () => {
                       name={name}
                       value={itemDetails[name]}
                       onChange={handleInputChange}
-                      placeholder={Enter` ${label.toLowerCase()}`}
+                      placeholder={`Enter ${label.toLowerCase()}`}
                       required
                       className="shadow-sm"
                     />
